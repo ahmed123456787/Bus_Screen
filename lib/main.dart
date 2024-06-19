@@ -10,7 +10,7 @@ import './presentation/widgets/header.dart';
 import './data/station_model.dart';
 
 Future<void> main() async {
-  await StationModel().fetchStations("going", "nameEN");
+  // await StationModel().fetchStations("going", "nameEN");
   debugPaintSizeEnabled = false;
   runApp(const MyApp());
 }
@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
                               Padding(
                                 padding: const EdgeInsets.only(left: 32),
                                 child: Text(
-                                  nameARList[i],
+                                  stations[i],
                                   style: TextStyle(
                                       fontSize: screenWidth * 0.04,
                                       fontWeight: FontWeight.bold,
@@ -244,13 +244,13 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// final List<String> stations = [
-//   "حي الفج",
-//   "جنان الزيتون",
-//   "جامعة قسنطينة 1",
-//   'منتوري',
-//   "زرزارة",
-// ];
+final List<String> stations = [
+  "Downtown",
+  "El Fedj Neighborhood",
+  "Djenane Zitoune",
+  'Constantine University 1',
+  "Mentouri",
+];
 
 class GpsData extends StatefulWidget {
   @override

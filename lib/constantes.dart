@@ -6,5 +6,4 @@ const containerColor = Color(0x1Abfa000);
 const textColor = Colors.black;
 const busColor = Colors.black;
 List<String> nameARList = [];
-int lineNumber = 0; // to Inialize the line number by default .
-
+int lineNumber = 1; // to Inialize the line number by default .
