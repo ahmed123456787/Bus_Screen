@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:itrans/main.dart';
 import './time_screen.dart';
@@ -22,7 +20,7 @@ class Header extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack( 
+              Stack(
                 children: [
                   Container(
                     margin: const EdgeInsets.only(left: 10, right: 10),
@@ -63,7 +61,6 @@ class Header extends StatelessWidget {
             ),
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-                double parentHeight = constraints.maxHeight;
                 double parentWidth = constraints.maxWidth;
                 double textSize = parentWidth * 0.7;
                 return Center(
@@ -95,7 +92,6 @@ class Header extends StatelessWidget {
               },
             ),
           ),
-          GpsData(),
           const Spacer(),
           Container(
             width: screenWidth * 0.1,

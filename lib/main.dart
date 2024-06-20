@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:async';
 import 'constantes.dart';
 import './info.dart';
 import './presentation/widgets/header.dart';
-import './data/station_model.dart';
+import './presentation/widgets/body.dart';
 
 Future<void> main() async {
   // await StationModel().fetchStations("going", "nameEN");
@@ -43,60 +42,8 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.only(top: 10, bottom: 10),
           child: Column(
             children: [
-              Header(),
-              SizedBox(
-                width: double.infinity,
-                height: screenHeight * 0.65,
-                child: Stack(
-                  children: [
-                    Container(color: containerColor),
-                    Container(
-                      margin: EdgeInsets.only(
-                          left: screenHeight * 0.11 * 0.7 / 2 + 12),
-                      width: 20,
-                      color: ligneColor,
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        for (int i = 0; i <= 3; i++) ...[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                width: 30.0,
-                                height: 30.0,
-                                margin: EdgeInsets.only(
-                                    left:
-                                        screenHeight * 0.11 * 0.7 / 2 + 12 - 5),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.white,
-                                  border: Border.all(
-                                    color: textColor,
-                                    width: 2.0, // Adjust border width as needed
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 32),
-                                child: Text(
-                                  stations[i],
-                                  style: TextStyle(
-                                      fontSize: screenWidth * 0.04,
-                                      fontWeight: FontWeight.bold,
-                                      color: textColor,
-                                      fontFamily: 'Arial'),
-                                ),
-                              )
-                            ],
-                          )
-                        ]
-                      ],
-                    ),
-                  ],
-                ),
-              ),
+              const Header(),
+              const Body(),
               Container(
                 width: double.infinity,
                 height: screenHeight * 0.18,
@@ -244,67 +191,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-final List<String> stations = [
-  "Downtown",
-  "El Fedj Neighborhood",
-  "Djenane Zitoune",
-  'Constantine University 1',
-  "Mentouri",
-];
-
-class GpsData extends StatefulWidget {
-  @override
-  State<GpsData> createState() => GpsState();
-}
-
-class GpsState extends State<GpsData> {
-  late WebSocketChannel channel;
-  String receivedData = '';
-  String serverUrl =
-      'ws://localhost:8080/ws'; // Replace with your server's WebSocket URL
-
-  @override
-  void initState() {
-    super.initState();
-    _openWebSocketConnection();
-    // _sendMessage(2, 2);
-  }
-
-  void _openWebSocketConnection() {
-    channel = WebSocketChannel.connect(Uri.parse(serverUrl));
-
-    channel.stream.listen(
-      (message) {
-        setState(() {
-          receivedData = message;
-          print(receivedData);
-        });
-      },
-      onError: (error) {
-        print('WebSocket error: $error');
-      },
-      onDone: () {
-        print('WebSocket connection closed');
-      },
-    );
-  }
-
-  void _closeWebSocketConnection() {
-    channel.sink.close();
-  }
-
-  // void _reopenWebSocketConnection() {
-  //   _closeWebSocketConnection();
-  //   _openWebSocketConnection();
-  // }
-
-  void _sendMessage(double latitude, double longitude) {
-    final data = jsonEncode({
-      'latitude': 23,
-      'longitude': 00,
-    });
-    channel.sink.add(data);
-  }
 
   @override
   Widget build(BuildContext context) {
