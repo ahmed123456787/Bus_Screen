@@ -5,3 +5,4 @@ class Info {
   static String next_station_2 = '';
   static String estimate_next_station2 = '';
 } 
+  

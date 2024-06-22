@@ -7,6 +7,7 @@ import 'constantes.dart';
 import './info.dart';
 import './presentation/widgets/header.dart';
 import './presentation/widgets/body.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 Future<void> main() async {
   // await StationModel().fetchStations("going", "nameEN");
@@ -43,7 +44,7 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               const Header(),
-              const Body(),
+             
               Container(
                 width: double.infinity,
                 height: screenHeight * 0.18,
@@ -188,18 +189,5 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-
-  @override
-  Widget build(BuildContext context) {
-    StreamBuilder(
-      stream: channel.stream,
-      builder: (context, snapshot) {
-        return Text(snapshot.hasData ? '${snapshot.data}' : '');
-      },
-    );
-    return Text("");
   }
 }

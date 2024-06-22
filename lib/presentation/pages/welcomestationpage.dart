@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:itrans/presentation/widgets/footer.dart';
 import 'package:itrans/presentation/widgets/header.dart';
-import 'package:itrans/presentation/widgets/sectionwelcome.dart';
-
+import 'package:itrans/presentation/widgets/headerwelcome.dart';
+import 'package:itrans/presentation/widgets/section_welcome.dart';
 
 class Welcomestationpage extends StatelessWidget {
   const Welcomestationpage({super.key});
@@ -15,7 +15,7 @@ class Welcomestationpage extends StatelessWidget {
         backgroundColor: Colors.white,
         body: Column(
           children: [
-            Header(),
+            Headerwelcome(),
             Sectionwelcomestation(
                 FirstStation: "FirstStation", LastStation: "LastStation"),
             Footer()
