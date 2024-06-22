@@ -3,7 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'dart:convert';
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'dart:async';
-import 'constantes.dart';
+import 'constantes/constantes.dart';
 import './info.dart';
 import './presentation/widgets/header.dart';
 import './presentation/widgets/body.dart';

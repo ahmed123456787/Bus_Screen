@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:itrans/main.dart';
 import './time_screen.dart';
-import './../../constantes.dart';
+import '../../constantes/constantes.dart';
 import './../../domain/entities/info.dart';
 
 class Headerwelcome extends StatelessWidget {

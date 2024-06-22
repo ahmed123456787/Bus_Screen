@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import './../../constantes.dart';
+import '../../constantes/constantes.dart';
 
 final List<String> initialStations = [
   "Downtown",

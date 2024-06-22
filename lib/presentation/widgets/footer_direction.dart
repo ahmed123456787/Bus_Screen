@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './../../constantes.dart';
+import '../../constantes/constantes.dart';
 import './../../info.dart';
 
 class FooterDirection extends StatelessWidget {
