@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import '../../../data/websocket_client.dart';
 import 'package:itrans/presentation/pages/current_station_page.dart';
 import 'package:itrans/presentation/pages/direction_page.dart';
 import 'package:itrans/presentation/pages/logopage.dart';
@@ -22,11 +25,49 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<BodyState> _bodyKey = GlobalKey<BodyState>();
   final PageStorageBucket bucket = PageStorageBucket();
   final SoundManager _soundManager = SoundManager();
+  late WebSocketRepository webSocketRepository;
+  late String CurrentStationName = "";
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _bodyKey.currentState?.scrollToNextStation();
+    webSocketRepository = WebSocketRepository();
+    openWebSocketConnection();
+  }
+
+  void openWebSocketConnection() {
+    // Ouvrir une connexion WebSocket et écouter les messages reçus
+    webSocketRepository.openConnection((message) {
+      //print('Received message: $message');
+      final data = jsonDecode(message);
+      if (data['sender'] == 'Tablet') {
+        //print('sender is tablet');
+
+        if (data['content']['driving_type'] == 'start') {
+          setState(() {
+            _currentIndex = 1;
+          });
+        }
+      }
+      if (data['sender'] == 'Geolocation') {
+        String positionType = data['content']['position']['type'];
+        if (positionType == 'station') {
+          setState(() {
+            /* WidgetsBinding.instance.addPostFrameCallback((_) {
+              _bodyKey.currentState
+                  ?.scrollinterstation(data['content']['position']['name']);
+            });
+            */
+            CurrentStationName = data['content']['position']['name'];
+            _currentIndex = 3;
+          });
+
+          // Gérer l'affichage de la station courante
+          // handleDisplayStation(data['content']['position']['name']);
+        } else if (positionType == 'interstation') {
+          // Gérer l'affichage de la station suivante
+          handleDisplayInterstation(data['content']['position']['name']);
+        }
+      }
     });
   }
 
@@ -36,17 +77,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _nextScreen() {
     setState(() {
-      if (_currentIndex == 1) {
+      if (_currentIndex == 0) {
+        _currentIndex = 1;
+      } else if (_currentIndex == 1) {
         _currentIndex = 2;
-        /*WidgetsBinding.instance.addPostFrameCallback((_) {
-          _bodyKey.currentState?.scrollToNextStation();
-        });*/
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _bodyKey.currentState?.initscroll();
+        });
       } else if (_currentIndex == 2) {
         _currentIndex = 3;
       } else {
         _currentIndex = 2;
-
-        // _playSound();
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _bodyKey.currentState?.scrollinterstation("Zarzara");
+        });
+        //_playSound();
       }
     });
   }
@@ -79,7 +124,7 @@ class _HomeScreenState extends State<HomeScreen> {
           bodyKey: _bodyKey,
           key: const PageStorageKey('DirectionPage')),
       Currentstationpage(
-          current_station: _getCurrentStation(),
+          current_station: CurrentStationName,
           key: const PageStorageKey('CurrentPage')),
     ];
 
@@ -110,6 +155,22 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  void handleDisplayStation(station) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bodyKey.currentState?.scrollinterstation(station);
+    });
+  }
+
+  void handleDisplayInterstation(station) {
+    setState(() {
+      _currentIndex = 2;
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _bodyKey.currentState?.scrollinterstation(station);
+    });
   }
 }
 

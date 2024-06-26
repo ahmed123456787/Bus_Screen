@@ -16,7 +16,7 @@ class TimeScreenState extends State<TimeScren> {
   void initState() {
     super.initState();
     timeString = _formatDateTime(DateTime.now());
-    Timer.periodic(Duration(seconds: 1), (Timer t) => _getCurrentTime());
+    Timer.periodic(const Duration(seconds: 1), (Timer t) => _getCurrentTime());
   }
 
   void _getCurrentTime() {

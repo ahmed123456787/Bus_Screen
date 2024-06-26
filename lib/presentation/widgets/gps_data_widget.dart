@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './../../data/websocket_gps.dart';
+import '../../../data/websocket_client.dart';
 
 class GpsDataWidget extends StatefulWidget {
   const GpsDataWidget({super.key});
