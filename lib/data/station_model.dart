@@ -1,6 +1,7 @@
-import 'dart:convert';
+import 'dart:convert';import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../constantes.dart';
+
+import '../constantes/constantes.dart';
 
 class StationModel {
   Future<void> fetchStations(String direction, String station_language) async {

@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
       final data = jsonDecode(message);
       if (data['sender'] == 'Tablet') {
         //print('sender is tablet');
-
         if (data['content']['driving_type'] == 'start') {
           setState(() {
             _currentIndex = 1;

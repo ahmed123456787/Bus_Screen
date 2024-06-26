@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:itrans/presentation/widgets/icontaxi.dart';
-import './../../constantes.dart';
+import '../../constantes/constantes.dart';
 
 class Sectioncurrentstation extends StatelessWidget {
   const Sectioncurrentstation({super.key, required this.CurrentStation});
